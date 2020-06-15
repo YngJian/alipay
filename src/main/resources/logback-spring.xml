@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
     <include resource="org/springframework/boot/logging/logback/base.xml" />
-    <contextName>digital_web</contextName>
+    <contextName>alipay</contextName>
     <property name="log.path" value="data/logs"/>
 
     <!-- debug日志文件输出 -->

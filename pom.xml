@@ -3,9 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.sunline.tiny</groupId>
-        <artifactId>tiny-boot-starter-one-parent</artifactId>
-        <version>3.0.4.RELEASE</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <artifactId>alipay</artifactId>
@@ -16,19 +17,23 @@
     <properties>
         <alipay.version>4.10.0.ALL</alipay.version>
         <fastjson.version>1.2.70</fastjson.version>
-        <tiny-error-center-version>0.0.1-RELEASE</tiny-error-center-version>
-        <tiny-utils-version>0.0.2-RELEASE</tiny-utils-version>
         <hutool.version>5.3.5</hutool.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
         <spring-cloud-alibaba.version>2.1.1.RELEASE</spring-cloud-alibaba.version>
     </properties>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- huTool 工具包 -->
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -46,22 +51,7 @@
             <version>${hutool.version}</version>
         </dependency>
         <!-- huTool 工具包 End -->
-        <!--错误中心-->
-        <dependency>
-            <groupId>cn.sunline.tiny</groupId>
-            <artifactId>tiny-error-center</artifactId>
-            <version>${tiny-error-center-version}</version>
-        </dependency>
-        <!--通用插件-->
-        <dependency>
-            <groupId>cn.sunline.tiny</groupId>
-            <artifactId>tiny-common-util</artifactId>
-            <version>${tiny-utils-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.sunline.tiny</groupId>
-            <artifactId>tiny-boot-starter-web</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
