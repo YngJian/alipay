@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <contextName>digital_web</contextName>
+    <property name="log.path" value="data/logs"/>
+
+    <!-- debug日志文件输出 -->
+    <appender name="RollingFileDebug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印DEBUG日志 -->
+            <level>DEBUG</level>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/digital_web_debug.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>../logs/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- 文件大小超过500MB归档 -->
+            <maxFileSize>500MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+
+    <appender name="RollingFileInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
+            <level>INFO</level>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印WARN日志 -->
+            <level>WARN</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/digital_web_info.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>../logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- 文件大小超过500MB归档 -->
+            <maxFileSize>500MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="RollingFileWarn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印WARN日志 -->
+            <level>WARN</level>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/digital_web_warn.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- 文件大小超过500MB归档 -->
+            <maxFileSize>500MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="RollingFileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/digital_web_error.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- 文件大小超过1MB归档 -->
+            <maxFileSize>500MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level> <!-- 日志过滤级别 -->
+        </filter>
+        <encoder>
+            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n</pattern><!-- 格式化输出 -->
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/>
+<!--        <appender-ref ref="RollingFileInfo"/>-->
+<!--        <appender-ref ref="RollingFileError"/>-->
+<!--        <appender-ref ref="RollingFileDebug"/>-->
+    </root>
+    <logger name="io.lettuce.core" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+
+
+</configuration>
