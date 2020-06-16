@@ -84,6 +84,7 @@ public class AliPayFlow extends JavaFlow {
         model.setBody(body);
         model.setSubject(subject);
         model.setTotalAmount(totalAmount);
+        model.setTimeoutExpress(aliPayBean.getTimeoutExpress());
         model.setPassbackParams(aliPayBean.getPassBackParams());
         String outTradeNo = StringUtils.getOutTradeNo();
         log.info("++++++++++wap outTradeNo+++++++++ {}", outTradeNo);
