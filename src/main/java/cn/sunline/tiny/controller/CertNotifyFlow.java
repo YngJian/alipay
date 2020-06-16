@@ -26,7 +26,7 @@ import java.util.Map;
  * @author : Yang Jian
  * @date : 2020/6/16 16:57
  */
-@Component("notify_url_flow")
+@Component("cert_notify_url_flow")
 public class CertNotifyFlow extends JavaFlow {
     private static final Logger log = LoggerFactory.getLogger(AliPayFlow.class);
 
