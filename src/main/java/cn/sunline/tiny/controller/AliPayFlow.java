@@ -7,7 +7,6 @@ import cn.sunline.tiny.core.FlowCom;
 import cn.sunline.tiny.core.JavaFlow;
 import cn.sunline.tiny.core.PriCache;
 import cn.sunline.tiny.core.PubCache;
-import cn.sunline.tiny.core.annotation.Get;
 import cn.sunline.tiny.core.annotation.Post;
 import cn.sunline.tiny.entity.AliPayBean;
 import cn.sunline.tiny.utils.StringUtils;
@@ -23,10 +22,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author : Yang Jian
- * @date : 2020/6/16 16:57
- */
 @Component("ali_pay_flow")
 public class AliPayFlow extends JavaFlow {
     private static final Logger log = LoggerFactory.getLogger(AliPayFlow.class);
@@ -51,34 +46,35 @@ public class AliPayFlow extends JavaFlow {
      */
     private final static String RETURN_URL = "/return_url.tml";
 
-    @Get
+    @Post
     @FlowCom(in = "true", name = "view", desc = "app payment")
     public Result flow_wap_pay(Context ct, PriCache pri, PubCache pub) {
         log.info("+++++++++++++++++alipay flow: wap pay started+++++++++++++++++");
-        // JSONObject jsonObject = (JSONObject) pri.getParamObj("jsonsObj");
+        JSONObject jsonObject = (JSONObject) pri.getParamObj("jsonsObj");
         JSONObject errors = AlipayApplication.errorCodeJSONS;
-        // if (jsonObject == null) {
-        //     return errorCenter.getResultByEasyCodeAndLanguage(errors, "jsonObjectNull", pri);
-        // }
-        // String body = aliPayBean.getBody();
-        // String subject = aliPayBean.getSubject();
-        // String totalAmount = jsonObject.getString("totalAmount");
-        // if (StringUtils.isBlank(totalAmount)) {
-        //     return errorCenter.getResultByEasyCodeAndLanguage(errors, "missParam", pri);
-        // }
-        // boolean number = Tools.isNumber(totalAmount);
-        // if (!number) {
-        //     return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
-        // }
-        // if (Integer.parseInt(totalAmount) > 100000000) {
-        //     return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
-        // }
+        if (jsonObject == null) {
+            return errorCenter.getResultByEasyCodeAndLanguage(errors, "jsonObjectNull", pri);
+        }
+        String body = aliPayBean.getBody();
+        String subject = aliPayBean.getSubject();
+        String totalAmount = jsonObject.getString("totalAmount");
+        if (StringUtils.isBlank(totalAmount)) {
+            return errorCenter.getResultByEasyCodeAndLanguage(errors, "missParam", pri);
+        }
+        boolean number = Tools.isNumber(totalAmount);
+        if (!number) {
+            return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
+        }
+        if (Integer.parseInt(totalAmount) > 100000000) {
+            return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
+        }
+        ;
         String returnUrl = aliPayBean.getDomain() + RETURN_URL;
         String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
 
-        String body = aliPayBean.getBody();
-        String subject = aliPayBean.getSubject();
-        String totalAmount ="0.01";
+        // String body = aliPayBean.getBody();
+        // String subject = aliPayBean.getSubject();
+        // String totalAmount ="0.01";
 
         AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
         model.setBody(body);
