@@ -60,9 +60,10 @@ public class AliPayFlow extends JavaFlow {
         if (jsonObject == null) {
             return errorCenter.getResultByEasyCodeAndLanguage(errors, "jsonObjectNull", pri);
         }
-        String body = aliPayBean.getBody();
-        String subject = aliPayBean.getSubject();
         String totalAmount = jsonObject.getString("totalAmount");
+        String frontBody = jsonObject.getString("body");
+        String frontSubject = jsonObject.getString("subject");
+        String frontOutTradeNot = jsonObject.getString("outTradeNo");
         if (StringUtils.isBlank(totalAmount)) {
             return errorCenter.getResultByEasyCodeAndLanguage(errors, "missParam", pri);
         }
@@ -73,6 +74,8 @@ public class AliPayFlow extends JavaFlow {
         if (Integer.parseInt(totalAmount) > 100000000) {
             return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
         }
+        String body = StringUtils.isNotBlank(frontBody) ? frontBody : aliPayBean.getBody();
+        String subject = StringUtils.isNotBlank(frontSubject) ? frontSubject : aliPayBean.getSubject();
         String returnUrl = aliPayBean.getDomain() + RETURN_URL;
         String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
 
@@ -86,7 +89,7 @@ public class AliPayFlow extends JavaFlow {
         model.setTotalAmount(totalAmount);
         model.setTimeoutExpress(aliPayBean.getTimeoutExpress());
         model.setPassbackParams(aliPayBean.getPassBackParams());
-        String outTradeNo = StringUtils.getOutTradeNo();
+        String outTradeNo = StringUtils.isNotBlank(frontOutTradeNot) ? frontOutTradeNot : StringUtils.getOutTradeNo();
         log.info("++++++++++wap outTradeNo+++++++++ {}", outTradeNo);
         model.setOutTradeNo(outTradeNo);
         model.setProductCode(aliPayBean.getProductCode());
