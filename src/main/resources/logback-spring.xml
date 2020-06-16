@@ -2,8 +2,8 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
     <include resource="org/springframework/boot/logging/logback/base.xml" />
-    <contextName>digital_web</contextName>
-    <property name="log.path" value="data/logs"/>
+    <contextName>alipay</contextName>
+    <property name="log.path" value="data/alipay/logs"/>
 
     <!-- debug日志文件输出 -->
     <appender name="RollingFileDebug" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -103,15 +103,15 @@
     </appender>
 
     <!-- 控制台输出 -->
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>debug</level> <!-- 日志过滤级别 -->
-        </filter>
-        <encoder>
-            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n</pattern><!-- 格式化输出 -->
-            <charset>utf8</charset> <!-- 输出编码 -->
-        </encoder>
-    </appender>
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+<!--            <level>debug</level> &lt;!&ndash; 日志过滤级别 &ndash;&gt;-->
+<!--        </filter>-->
+<!--        <encoder>-->
+<!--            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n</pattern>&lt;!&ndash; 格式化输出 &ndash;&gt;-->
+<!--            <charset>utf8</charset> &lt;!&ndash; 输出编码 &ndash;&gt;-->
+<!--        </encoder>-->
+<!--    </appender>-->
 
     <root level="debug">
         <appender-ref ref="CONSOLE"/>

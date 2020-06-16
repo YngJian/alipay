@@ -16,6 +16,51 @@ public class AliPayBean {
     private String aliPayRootCertPath;
     private String serverUrl;
     private String domain;
+    private String body;
+    private String subject;
+    private String timeoutExpress;
+    private String productCode;
+    private String passBackParams;
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getPassBackParams() {
+        return passBackParams;
+    }
+
+    public void setPassBackParams(String passBackParams) {
+        this.passBackParams = passBackParams;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getTimeoutExpress() {
+        return timeoutExpress;
+    }
+
+    public void setTimeoutExpress(String timeoutExpress) {
+        this.timeoutExpress = timeoutExpress;
+    }
 
     public String getAppId() {
         return appId;
@@ -93,6 +138,11 @@ public class AliPayBean {
                 ", aliPayRootCertPath='" + aliPayRootCertPath + '\'' +
                 ", serverUrl='" + serverUrl + '\'' +
                 ", domain='" + domain + '\'' +
+                ", body='" + body + '\'' +
+                ", subject='" + subject + '\'' +
+                ", timeoutExpress='" + timeoutExpress + '\'' +
+                ", productCode='" + productCode + '\'' +
+                ", passBackParams='" + passBackParams + '\'' +
                 '}';
     }
 }

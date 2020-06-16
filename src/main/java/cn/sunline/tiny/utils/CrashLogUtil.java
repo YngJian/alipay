@@ -20,7 +20,7 @@ public class CrashLogUtil {
 
     @Value("${spring.application.name}")
     private String applicationName;
-    @Value("${crashlogPath}")
+    @Value("${crashlogPath:'/data/alipay/crashlog'}")
     private String crashlogPath;
     @Autowired
     private SendMqMsgUtil sendMqMsgUtil;

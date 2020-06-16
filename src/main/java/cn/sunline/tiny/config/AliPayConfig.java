@@ -27,17 +27,17 @@ public class AliPayConfig {
             aliPayApiConfig = AliPayApiConfig.builder()
                     .setAppId(aliPayBean.getAppId())
                     .setAliPayPublicKey(aliPayBean.getPublicKey())
-                    .setAppCertPath(aliPayBean.getAppCertPath())
-                    .setAliPayCertPath(aliPayBean.getAliPayCertPath())
-                    .setAliPayRootCertPath(aliPayBean.getAliPayRootCertPath())
+                    // .setAppCertPath(aliPayBean.getAppCertPath())
+                    // .setAliPayCertPath(aliPayBean.getAliPayCertPath())
+                    // .setAliPayRootCertPath(aliPayBean.getAliPayRootCertPath())
                     .setCharset("UTF-8")
                     .setPrivateKey(aliPayBean.getPrivateKey())
                     .setServiceUrl(aliPayBean.getServerUrl())
                     .setSignType("RSA2")
                     // 普通公钥方式
-                    //.build();
-                    // 证书模式
-                    .buildByCert();
+                    .build();
+            // 证书模式
+            // .buildByCert();
         }
         return aliPayApiConfig;
     }
