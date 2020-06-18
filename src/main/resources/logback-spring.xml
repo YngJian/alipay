@@ -1,126 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="60 seconds" debug="false">
-
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
+<configuration>
     <contextName>alipay</contextName>
-    <property name="log.path" value="data/alipay/logs"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
 
-    <!-- debug日志文件输出 -->
-    <appender name="RollingFileDebug" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印DEBUG日志 -->
-            <level>DEBUG</level>
-        </filter>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>NEUTRAL</onMismatch>
-        </filter>
-        <encoder>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
-            </pattern>
-            <charset>utf8</charset> <!-- 输出编码 -->
-        </encoder>
-        <file>${log.path}/digital_web_debug.log</file><!-- 文件存放路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>../logs/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
-        </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <!-- 文件大小超过500MB归档 -->
-            <maxFileSize>500MB</maxFileSize>
-        </triggeringPolicy>
-    </appender>
-
-
-    <appender name="RollingFileInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
-            <level>INFO</level>
-        </filter>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印WARN日志 -->
-            <level>WARN</level>
-            <onMatch>DENY</onMatch>
-            <onMismatch>NEUTRAL</onMismatch>
-        </filter>
-        <encoder>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
-            </pattern>
-            <charset>utf8</charset> <!-- 输出编码 -->
-        </encoder>
-        <file>${log.path}/digital_web_info.log</file><!-- 文件存放路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>../logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
-        </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <!-- 文件大小超过500MB归档 -->
-            <maxFileSize>500MB</maxFileSize>
-        </triggeringPolicy>
-    </appender>
-
-    <appender name="RollingFileWarn" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印WARN日志 -->
-            <level>WARN</level>
-        </filter>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
-            <level>ERROR</level>
-            <onMatch>DENY</onMatch>
-            <onMismatch>NEUTRAL</onMismatch>
-        </filter>
-        <encoder>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
-            </pattern>
-            <charset>utf8</charset> <!-- 输出编码 -->
-        </encoder>
-        <file>${log.path}/digital_web_warn.log</file><!-- 文件存放路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
-        </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <!-- 文件大小超过500MB归档 -->
-            <maxFileSize>500MB</maxFileSize>
-        </triggeringPolicy>
-    </appender>
-
-    <appender name="RollingFileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
-            <level>ERROR</level>
-        </filter>
-        <encoder>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n
-            </pattern>
-            <charset>utf8</charset> <!-- 输出编码 -->
-        </encoder>
-        <file>${log.path}/digital_web_error.log</file><!-- 文件存放路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
-        </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <!-- 文件大小超过1MB归档 -->
-            <maxFileSize>500MB</maxFileSize>
-        </triggeringPolicy>
-    </appender>
+<!--    <property name="log.path" value="/data/alipay/logs"/>-->
+    <property name="log.path" value="/data/logs/alipay"/>
 
     <!-- 控制台输出 -->
-<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
-<!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-<!--            <level>debug</level> &lt;!&ndash; 日志过滤级别 &ndash;&gt;-->
-<!--        </filter>-->
-<!--        <encoder>-->
-<!--            <pattern>%date %-5level [%thread] [%class : %method : %line] %msg%n</pattern>&lt;!&ndash; 格式化输出 &ndash;&gt;-->
-<!--            <charset>utf8</charset> &lt;!&ndash; 输出编码 &ndash;&gt;-->
-<!--        </encoder>-->
-<!--    </appender>-->
+    <!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+    <!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+    <!--            <level>debug</level> &lt;!&ndash; 日志过滤级别 &ndash;&gt;-->
+    <!--        </filter>-->
+    <!--        <encoder>-->
+    <!--            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%contextName][%thread][%-5level][%logger{36}] - %msg%n</pattern>&lt;!&ndash; 格式化输出 &ndash;&gt;-->
+    <!--            <charset>utf8</charset> &lt;!&ndash; 输出编码 &ndash;&gt;-->
+    <!--        </encoder>-->
+    <!--    </appender>-->
 
-    <root level="debug">
-        <appender-ref ref="CONSOLE"/>
-<!--        <appender-ref ref="RollingFileInfo"/>-->
-<!--        <appender-ref ref="RollingFileError"/>-->
-<!--        <appender-ref ref="RollingFileDebug"/>-->
-    </root>
-    <logger name="io.lettuce.core" level="INFO"/>
-    <logger name="org.springframework" level="INFO"/>
+    <!-- 文件输出 -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%contextName][%thread][%-5level][%logger{36}] - %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/alipay_info.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/info/alipay_info_%d{yyyy-MM-dd}.log</fileNamePattern><!-- 每天归档 -->
+            <maxHistory>90</maxHistory><!-- 日志存放周期（天） -->
+        </rollingPolicy>
+    </appender>
+    <!-- 错误日志文件输出 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%contextName][%thread][%-5level][%logger{36}] - %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/alipay_error.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/error/alipay_%d{yyyy-MM-dd}.log</fileNamePattern><!-- 每天归档 -->
+            <maxHistory>90</maxHistory><!-- 日志存放周期（天） -->
+        </rollingPolicy>
+    </appender>
+    <!-- debug日志文件输出 -->
+    <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%contextName][%thread][%-5level][%logger{36}] - %msg%n
+            </pattern>
+            <charset>utf8</charset> <!-- 输出编码 -->
+        </encoder>
+        <file>${log.path}/alipay_debug.log</file><!-- 文件存放路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/debug/alipay_%d{yyyy-MM-dd}.log</fileNamePattern><!-- 每天归档 -->
+            <maxHistory>90</maxHistory><!-- 日志存放周期（天） -->
+        </rollingPolicy>
+    </appender>
+
+    <!-- 基础日志输出级别 -->
+    <springProfile name="local">
+        <root level="debug">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="org.quartz.core" level="Info" additivity="false"/>
+        <logger name="org.apache.http" level="Info" additivity="false" />
+<!--        <logger name="org.springframework" level="INFO" additivity="false"/>-->
+        <logger name="org.apache.ibatis" level="OFF" additivity="false"/>
+        <logger name="java.sql.Connection" level="OFF" additivity="false"/>
+        <logger name="java.sql.Statement" level="OFF" additivity="false"/>
+        <logger name="java.sql.PreparedStatement" level="OFF" additivity="false"/>
+        <logger name="org.mybatis.spring" level="OFF" additivity="false"/>
+        <logger name="org.apache.commons" level="OFF" additivity="false"/>
+        <logger name="com.netflix" level="OFF" additivity="false"/>
+        <logger name="com.zaxxer.hikari" level="ERROR" additivity="false"/>
+        <logger name="com.alibaba.nacos.client.naming" level="ERROR" additivity="false"/>
+    </springProfile>
+    <!-- 基础日志输出级别 -->
+    <springProfile name="dev">
+        <root level="info">
+<!--            <appender-ref ref="CONSOLE"/>-->
+            <appender-ref ref="DEBUG_FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+        <logger name="org.quartz.core" level="Info" additivity="false"/>
+        <logger name="org.apache.http" level="Info" additivity="false" />
+<!--        <logger name="org.springframework" level="INFO" additivity="false"/>-->
+        <logger name="org.apache.ibatis" level="OFF" additivity="false"/>
+        <logger name="java.sql.Connection" level="OFF" additivity="false"/>
+        <logger name="java.sql.Statement" level="OFF" additivity="false"/>
+        <logger name="java.sql.PreparedStatement" level="OFF" additivity="false"/>
+        <logger name="org.mybatis.spring" level="OFF" additivity="false"/>
+        <logger name="org.apache.commons" level="OFF" additivity="false"/>
+        <logger name="com.netflix" level="OFF" additivity="false"/>
+        <logger name="com.zaxxer.hikari" level="ERROR" additivity="false"/>
+        <logger name="com.alibaba.nacos.client.naming" level="ERROR" additivity="false"/>
+    </springProfile>
+    <!-- 基础日志输出级别 -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="DEBUG_FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+        <logger name="org.quartz.core" level="Info" additivity="false"/>
+        <logger name="org.apache.http" level="Info" additivity="false" />
+<!--        <logger name="org.springframework" level="INFO" additivity="false"/>-->
+        <logger name="org.apache.ibatis" level="OFF" additivity="false"/>
+        <logger name="java.sql.Connection" level="OFF" additivity="false"/>
+        <logger name="java.sql.Statement" level="OFF" additivity="false"/>
+        <logger name="java.sql.PreparedStatement" level="OFF" additivity="false"/>
+        <logger name="org.mybatis.spring" level="OFF" additivity="false"/>
+        <logger name="org.apache.commons" level="OFF" additivity="false"/>
+        <logger name="com.netflix" level="OFF" additivity="false"/>
+        <logger name="com.zaxxer.hikari" level="ERROR" additivity="false"/>
+        <logger name="com.alibaba.nacos.client.naming" level="ERROR" additivity="false"/>
+    </springProfile>
 
 
 </configuration>
