@@ -1,0 +1,43 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="Access-Control-Allow-Origin" content="*"/>
+    <title>sunline alipay</title>
+    <link rel="stylesheet" href="/static/css/pay.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body >
+    <div align="center">
+        <div>
+            <header >
+                <h1>Pay with Ali-Pay</h1>
+                <p style="color: coral">Sunline Make payment within reach, Alipay H5 payment</p>
+            </header>
+        </div>
+        <div align="center">
+            <form action="http://10.25.1.229:9200/alipay/ali_pay.tml?flow=wap_pay" method="post">
+                Order number:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input id="outTradeNo" type="text" name="outTradeNo" size="52%" placeholder="not required">
+                <br>
+                Product name:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input id="subject" type="text" name="subject" size="52%" placeholder="not required">
+                <br>
+                Product description:
+                <input id="body" type="text" name="body" size="52%" placeholder="not required">
+                <br>
+                Payment amount:&nbsp&nbsp&nbsp&nbsp
+                <input id="totalAmount" type="text" name="totalAmount" size="52%" required="required" placeholder="Accurate to two decimal places, value range [0.01,100000000]">
+                <br><br>
+                <input type="submit" size="52%" value="PayImmediately">
+<!--                <input type="button" name="PayImmediately" value="PayImmediately" onclick="pay()">-->
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

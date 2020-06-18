@@ -7,7 +7,6 @@ import cn.sunline.tiny.core.FlowCom;
 import cn.sunline.tiny.core.JavaFlow;
 import cn.sunline.tiny.core.PriCache;
 import cn.sunline.tiny.core.PubCache;
-import cn.sunline.tiny.core.annotation.Get;
 import cn.sunline.tiny.core.annotation.Post;
 import cn.sunline.tiny.entity.AliPayBean;
 import cn.sunline.tiny.utils.StringUtils;
@@ -55,46 +54,47 @@ public class AliPayFlow extends JavaFlow {
     @FlowCom(in = "true", name = "view", desc = "app payment")
     public Result flow_wap_pay(Context ct, PriCache pri, PubCache pub) {
         log.info("+++++++++++++++++alipay flow: wap pay started+++++++++++++++++");
-        JSONObject jsonObject = (JSONObject) pri.getParamObj("jsonsObj");
+        // JSONObject jsonObject = (JSONObject) pri.getParamObj("jsonsObj");
         JSONObject errors = AlipayApplication.errorCodeJSONS;
-        if (jsonObject == null) {
-            return errorCenter.getResultByEasyCodeAndLanguage(errors, "jsonObjectNull", pri);
-        }
-        String totalAmount = jsonObject.getString("totalAmount");
-        String frontBody = jsonObject.getString("body");
-        String frontSubject = jsonObject.getString("subject");
-        String frontOutTradeNot = jsonObject.getString("outTradeNo");
-        if (StringUtils.isBlank(totalAmount)) {
-            return errorCenter.getResultByEasyCodeAndLanguage(errors, "missParam", pri);
-        }
-        boolean number = Tools.isNumber(totalAmount);
-        if (!number) {
-            return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
-        }
-        if (Integer.parseInt(totalAmount) > 100000000) {
-            return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
-        }
-        String body = StringUtils.isNotBlank(frontBody) ? frontBody : aliPayBean.getBody();
-        String subject = StringUtils.isNotBlank(frontSubject) ? frontSubject : aliPayBean.getSubject();
-        String returnUrl = aliPayBean.getDomain() + RETURN_URL;
-        String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
-
-        // String body = aliPayBean.getBody();
-        // String subject = aliPayBean.getSubject();
-        // String totalAmount ="0.01";
-
-        AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
-        model.setBody(body);
-        model.setSubject(subject);
-        model.setTotalAmount(totalAmount);
-        model.setTimeoutExpress(aliPayBean.getTimeoutExpress());
-        model.setPassbackParams(aliPayBean.getPassBackParams());
-        String outTradeNo = StringUtils.isNotBlank(frontOutTradeNot) ? frontOutTradeNot : StringUtils.getOutTradeNo();
-        log.info("++++++++++wap outTradeNo+++++++++ {}", outTradeNo);
-        model.setOutTradeNo(outTradeNo);
-        model.setProductCode(aliPayBean.getProductCode());
-        HttpServletResponse response = ct.getResponse();
+        // if (jsonObject == null) {
+        //     return errorCenter.getResultByEasyCodeAndLanguage(errors, "jsonObjectNull", pri);
+        // }
         try {
+            String totalAmount = pri.getString("totalAmount");
+            String frontBody = pri.getString("body");
+            String frontSubject = pri.getString("subject");
+            String frontOutTradeNot = pri.getString("outTradeNo");
+            if (StringUtils.isBlank(totalAmount)) {
+                return errorCenter.getResultByEasyCodeAndLanguage(errors, "missParam", pri);
+            }
+            boolean number = Tools.isNumber(totalAmount);
+            if (!number) {
+                return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
+            }
+            if (Double.parseDouble(totalAmount) > 100000000) {
+                return errorCenter.getResultByEasyCodeAndLanguage(errors, "wrongAmount", pri);
+            }
+            String body = StringUtils.isNotBlank(frontBody) ? frontBody : aliPayBean.getBody();
+            String subject = StringUtils.isNotBlank(frontSubject) ? frontSubject : aliPayBean.getSubject();
+            String returnUrl = aliPayBean.getDomain() + RETURN_URL;
+            String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
+
+            // String body = aliPayBean.getBody();
+            // String subject = aliPayBean.getSubject();
+            // String totalAmount ="0.01";
+
+            AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
+            model.setBody(body);
+            model.setSubject(subject);
+            model.setTotalAmount(totalAmount);
+            model.setTimeoutExpress(aliPayBean.getTimeoutExpress());
+            model.setPassbackParams(aliPayBean.getPassBackParams());
+            String outTradeNo = StringUtils.isNotBlank(frontOutTradeNot) ? frontOutTradeNot : StringUtils.getOutTradeNo();
+            log.info("++++++++++wap outTradeNo+++++++++ {}", outTradeNo);
+            model.setOutTradeNo(outTradeNo);
+            model.setProductCode(aliPayBean.getProductCode());
+            HttpServletResponse response = ct.getResponse();
+
             AliPayApi.wapPay(response, model, returnUrl, notifyUrl);
             return errorCenter.getResultByEasyCodeAndLanguage(errors, "SUCCESS", pri);
         } catch (Exception e) {
